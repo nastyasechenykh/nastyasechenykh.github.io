@@ -1,0 +1,514 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Тестик✨</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&family=Underdog&display=swap" rel="stylesheet">
+<style type="text/css">
+body {
+background: url(squares.png) no-repeat;
+background-size: 100%; 
+}
+#intro {
+position: fixed;
+top: 21%;
+left: 0;
+width: 100%;
+text-align: center;
+background: white;
+font-family: 'Russo One', sans-serif;
+border: 2px solid black;
+}
+#start {
+margin-bottom: 10px;
+font-family: 'Press Start 2P', cursive;
+padding: 4px;
+text-align: center;
+font-size: 70%;
+box-shadow: 3px 3px;
+}
+#upper {
+border: none; 
+background-color: black; 
+color: black; 
+height: 2px;
+margin-top: 40px;
+}
+h4 {
+position: absolute;
+left: 3%;
+top: 0;
+margin: 10px;
+}
+#bottom {
+border: none; 
+background-color: black; 
+color: black; 
+height: 2px;
+margin-top: 12px;
+margin-bottom: 45px;
+}
+#text {
+position: absolute;
+left: 5%;
+top: 0;
+margin-top: 10px;
+}
+.go {
+position: absolute;
+top: 84%;
+right: 4%;
+box-shadow: 3px 3px;
+font-family: 'Press Start 2P', cursive;
+font-size: 70%;
+padding: 5px;
+}
+.back {
+position: absolute;
+top: 84%;
+left: 5%;
+box-shadow: 3px 3px;
+font-family: 'Press Start 2P', cursive;
+font-size: 70%;
+padding: 5px;
+}
+.final {
+position: absolute;
+top: 86%;
+right: 28%;
+box-shadow: 3px 3px;
+font-family: 'Press Start 2P', cursive;
+font-size: 70%;
+padding: 5px;
+}
+.begin {
+position: absolute;
+top: 85%;
+left: 4%;
+box-shadow: 3px 3px;
+font-family: 'Press Start 2P', cursive;
+font-size: 50%;
+padding: 5px;
+width: 17%;
+}
+.quest {
+margin-top: 30px;
+display: none;
+text-align: center;
+background: white;
+border: 2px solid black;
+position: fixed;
+top: 11%;
+left: 28%;
+right: 30%;
+box-shadow: 6px 10px;
+font-family: 'Russo One', sans-serif;
+padding-bottom: 7px;
+}
+.naviQ {
+margin-top:10px;
+box-shadow: 2px 2px;
+font-family: 'Press Start 2P', cursive;
+font-size: 70%;
+position: absolute;
+top: 0;
+}
+#qNum1 {
+right: 30%;
+}
+#qNum2 {
+right: 23%;
+}
+#qNum3 {
+right: 16%;
+}
+#qNum4 {
+right: 9%;
+}
+#qNum5 {
+right: 2%;
+}
+#result, #result1, #result2, #result3, #result4, #result5, #result6, #result7 {
+display: none;
+text-align: center;
+background: white;
+border: 2px solid black;
+position: fixed;
+top: 18%;
+left: 28%;
+right: 30%;
+box-shadow: 6px 10px;
+font-family: 'Russo One', sans-serif;
+padding: 2%;
+}
+.ans {
+margin-bottom:10px;
+}
+#resPicture {
+width: 50%;
+height: 5%;
+margin: 7px;
+}
+.bgRed {
+background-color: red;
+}
+.picture img {
+display: none;
+width: 20%;
+height: 30%;
+}
+#p1, #p5 {
+top: 7%;
+left: 4%;
+position: fixed;
+}
+#p2, #p9 {
+top: 23%;
+left: 6%;
+position: fixed;
+}
+#p3, #p7 {
+top: 17%;
+right: 4%;
+position: fixed;
+}
+#p6, #p8 {
+top: 30%;
+right: 7%;
+position: fixed;
+}
+#p4, #p10 {
+top: 60%;
+left: 6%;
+position: fixed;
+}
+.hit-the-floor {
+color: black;
+font-family: 'Russo One', sans-serif;
+padding-top: 1%;
+font-size: 2em;
+text-shadow: 
+    0 1px 0 #ccc, 
+    0 2px 0 #c9c9c9, 
+    0 3px 0 #bbb, 
+    0 4px 0 #b9b9b9, 
+    0 5px 0 #aaa, 
+    0 6px 1px rgba(0,0,0,.1), 
+    0 0 5px rgba(0,0,0,.1), 
+    0 1px 3px rgba(0,0,0,.3), 
+    0 3px 5px rgba(0,0,0,.2), 
+    0 5px 10px rgba(0,0,0,.25), 
+    0 10px 10px rgba(0,0,0,.2), 
+    0 20px 20px rgba(0,0,0,.15);
+}
+</style>
+<script src='https://code.jquery.com/jquery-1.11.2.js'></script>
+<script>
+$(document).ready(function(){
+
+//массив для выбора id вопросов
+	let question_arr = [];
+	
+//заполним массив для id
+	for (let i = 1; i <= $('.quest').length; i++){
+		question_arr[i - 1] = i;
+	}
+	
+//сделаем что-то для мешания вопросов
+	function shuffle(array) {
+		array.sort(() => Math.random() - 0.5);
+}
+
+//помешаем idшки в массиве
+	shuffle(question_arr);
+	console.log(question_arr);
+
+
+//кнопка "Я готов"
+ $('#start').click ( function() { 
+	$('#intro').hide();
+	$('.quest#' + question_arr[0]).show();
+	$('.naviQ#qNum1').addClass('bgRed');
+	$('.picture').find('img#p' + question_arr[0]).show();
+ });
+ 
+ $('.quest').each ( function(i) {
+	let max = Math.floor(question_arr.length/2); 
+	
+ 
+ //пронумеруем все quest для генерации рандомных вопросов
+ $(this).attr('id', i+1);
+
+//объединим радиокнопки в группы:
+	let radioGroup = $(this).find('input[type="radio"]');
+	radioGroup.prop('name','ans'+(i+1));
+
+//даем разный вес ответам	
+	radioGroup.each( function(j) {
+	$(this).attr('value', j+1)
+	});
+	
+	
+//добавляем разные кнопки
+	$(this).append('<input type="button" value="Дальше" class="go" id="go' + (i+1) + '" />');
+	$(this).append('<input type="button" value="Назад" class="back" id="back' + (i+1) + '" />');
+	
+//навигация	
+	for(let i = 0; i < max; i++){
+		$(this).append('<input type="button" value="' + (i+1) + '" class="naviQ" id="qNum' + (i+1) + '"/>');
+		}
+	
+
+ });
+ 
+//приписываем idшки картинкам
+ $('.picture img').each( function(i) {
+	$(this).attr("id", "p" +(i+1));
+ });
+	
+ //кнопка Заново и ее функционал
+ $('#results div').each( function() {
+	$(this).append('<input type="button" value="Заново" class="begin" />');
+	$(this).attr('class', "end");
+});
+ 
+ $('.begin').click ( function() {
+	$('.naviQ#qNum' + max).removeClass('bgRed');
+	$('input[type=radio]').attr('checked',false);
+	score = 0;
+	engine = 0;
+	shuffle(question_arr);
+	console.log(question_arr);
+	$(this).parents('.end').hide();
+	//$('.picture img').hide();
+	$('#intro').show();
+ }); 
+
+//подсчет очков и кнопка Дальше, а еще двигатель прогресса
+ let score = 0;
+ let max = Math.floor(question_arr.length/2);
+ let engine = 0;
+ 
+ $('.go').click ( function() {
+ 
+	if (engine < (max-1)){
+	$('.quest#' + question_arr[engine]).hide();
+	$('.picture').find('img#p' + question_arr[engine]).hide();
+	$('.picture').find('img#p' + question_arr[engine + 1]).show();
+	$('.quest#' + question_arr[engine + 1]).show();
+	$('.naviQ#qNum' + (engine+1)).removeClass('bgRed');
+	$('.naviQ#qNum' + (engine+2)).addClass('bgRed');
+	engine++;}
+	
+	let radioChecked = $(this).parents('.quest').find('input[type="radio"]:checked');
+	score = score + Number(radioChecked.prop('value'));
+	console.log(score);
+	
+	if ($(this).parents('.quest').is($('.quest#' + question_arr[max-1]))){
+		if( isNaN(score) ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result3').show();}
+		if( score == 5 ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result').show();}
+		if( score == 6 ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result1').show();}
+		if( score == 7 | score == 8 ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result2').show();}
+		if( score == 9 | score == 10 ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result4').show();}
+		if( score == 11 | score == 12 ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result5').show();}
+		if( score == 13 | score == 14 ) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result6').show();}
+		if( score == 15) {$('.quest#' + question_arr[max-1]).hide(); $('.picture').find('img#p' + question_arr[max-1]).hide(); $('#result7').show();}
+ } 
+ });
+ 
+ //кнопка Назад
+ $('.back').click ( function() {
+ 
+	if (engine != 0){
+	$('.quest#' + question_arr[engine]).hide();
+	$('.picture').find('img#p' + question_arr[engine]).hide();
+	$('.picture').find('img#p' + question_arr[engine - 1]).show();
+	$('.quest#' + question_arr[engine - 1]).show();
+	$('.naviQ#qNum' + (engine+1)).removeClass('bgRed');
+	$('.naviQ#qNum' + engine).addClass('bgRed');
+	engine--;}
+	
+ });
+ 
+ /*for (let i = 1; i < max; i++) {
+	$('.naviQ#qNum' + i).click ( function() {
+		$(this).hide();
+		$('.quest#' + question_arr[i]).show();
+	});  
+ }*/
+ 
+});
+</script>
+</head>
+
+<body>
+<form name="f">
+<div id="intro">
+ <div class="hit-the-floor">Тест.</div>
+ <p>Дальше идет достаточно серьезная информация.</p><p>Отвечайте максимально правдиво или не отвечайте совсем.</p><p>По итогам теста вы узнаете, ✨какой вы фильм-пародия✨</p><p><font color="red">ВНИМАНИЕ! В ходе теста обязательно нажмите на каждую кнопку "Дальше"!</font></p> <input type="button" value="Я готов." id="start" />
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Если человек теряет Большой и Указательный палец, Безымянный становится Средним?</h3>
+ <div class="ans"><input type="radio" />Да</div>
+ <div class="ans"><input type="radio" />Нет</div>
+ <div class="ans"><input type="radio" />Пальцы не меняют названия</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Аэрохоккей в самолёте – это аэроаэрохоккей?</h3>
+ <div class="ans"><input type="radio" />Да</div>
+ <div class="ans"><input type="radio" />Нет</div>
+ <div class="ans"><input type="radio" />Аэрохоккей не поместится в самолете</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Представьте, что вы осел. Какую из двух охапок сена вы съедите?</h3>
+ <div class="ans"><input type="radio" />Левую</div>
+ <div class="ans"><input type="radio" />Правую</div>
+ <div class="ans"><input type="radio" />Любую</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Анекдот: у семьи каннибалов умер родственник - и грустно, и вкусно</h3>
+ <div class="ans"><input type="radio" />Смешно</div>
+ <div class="ans"><input type="radio" />Не очень смешно</div>
+ <div class="ans"><input type="radio" />Не уважаю черный юмор</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Вы всегда с удовольствием смотрите концерты Евгения Петросяна?</h3>
+ <div class="ans"><input type="radio" />Пересказываю его шутки</div>
+ <div class="ans"><input type="radio" />Наслаждаюсь тем, что я выше этого</div>
+ <div class="ans"><input type="radio" />Не смотрю</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Каламбур: если вы покупаете ворованные вещи у наркоманов, то вы одеты с иголочки</h3>
+ <div class="ans"><input type="radio" />Какой-то тест для дураков</div>
+ <div class="ans"><input type="radio" />Картинка с попугаями</div>
+ <div class="ans"><input type="radio" />Я не буду покупать у наркоманов</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Когда к вам в дом приходят «Свидетели Иеговы» и прочие, вы:</h3>
+ <div class="ans"><input type="radio" />Всегда их слушаю</div>
+ <div class="ans"><input type="radio" />Прогоняю</div>
+ <div class="ans"><input type="radio" />Я и сам Свидетель Иеговы</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Можно ли завязать пупок, если он развяжется?</h3>
+ <div class="ans"><input type="radio" />Запросто</div>
+ <div class="ans"><input type="radio" />Нет конечно</div>
+ <div class="ans"><input type="radio" />Прибегнуть к помощи врача</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Какой стиль юмора вы предпочитаете?</h3>
+ <div class="ans"><input type="radio" />Всё, что мне смешно - смешно</div>
+ <div class="ans"><input type="radio" />Только английский юмор</div>
+ <div class="ans"><input type="radio" />Никогда не смеюсь</div> 
+ <hr id="bottom">
+</div>
+<div class="quest">
+<h4>№ вопроса</h4>
+<hr id="upper">
+ <h3>Сколько чаевых вы оставляете в ресторане?</h3>
+ <div class="ans"><input type="radio" />Никогда не оставляю</div>
+ <div class="ans"><input type="radio" />10% от счета</div>
+ <div class="ans"><input type="radio" />100 рублей</div> 
+ <hr id="bottom">
+</div>
+<div class="picture">
+ <img src="hand.png">
+ <img src="hokkey.png">
+ <img src="donkey.png">
+ <img src="laugh.png">
+ <img src="show.png">
+ <img src="parrots.png">
+ <img src="god.png">
+ <img src="doctor.png">
+ <img src="humor.png">
+ <img src="money.png">
+</div>
+
+
+<div id="results">
+<!-- один вариант результата -->
+<div id="result">
+ <h3>Результат:</h3>
+ <p>Согласно результатам данного теста, вы - "Самый лучший фильм" - пародия на российские фильмы с рейтингом 3.1</p>
+ <img id="resPicture" src="best.png">
+</div>
+
+<!-- второй вариант -->
+<div id="result1">
+ <h3>Результат:</h3>
+ <p>Вы уже не самый плохой фильм-пародия, вы - "Очень голодные игры", рейтинг 3.4</p>
+ <img id="resPicture" src="hungry.png">
+</div>
+
+<!-- третий вариант -->
+<div id="result2">
+ <h3>Результат:</h3>
+ <p>Вы интересный персонаж, вы - "Вампирский засос" с рейтингом 4.1</p>
+ <img id="resPicture" src="vampire.png">
+</div>
+
+<!-- четвертый вариант -->
+<div id="result4">
+ <h3>Результат:</h3>
+ <p>Вы явно выше среднего, с изюминкой, ваш фильм - "Суперфорсаж" с рейтингом 4.6, там еще велосипед взорвался</p>
+ <img id="resPicture" src="fast.png">
+</div>
+
+<!-- пятый вариант -->
+<div id="result5">
+ <h3>Результат:</h3>
+ <p>Вы невероятны, уровень вашей неординарности высок, ваш фильм - "Дом с паранормальными явлениями", рейтинг 5.6</p>
+ <img id="resPicture" src="house.png">
+</div>
+
+<!-- шестой вариант -->
+<div id="result6">
+ <h3>Результат:</h3>
+ <p>Планка изюминок вашей личности почти максимален, ваш фильм - "Очень страшное кино", рейтинг 7</p>
+ <img id="resPicture" src="scary.jpg">
+</div>
+
+<!-- седьмой вариант -->
+<div id="result7">
+ <h3>Результат:</h3>
+ <p>Потолок достигнут, вы самая интересная личность согласно этомму тесту, ваш фильм - "Не грози южному централу, попивая сок у себя в квартале", рейтинг 7.2</p>
+ <img id="resPicture" src="juice.png">
+</div>
+
+<!-- вариант для дураков -->
+<div id="result3">
+ <h3>Результат:</h3>
+ <p>Ответь ты на каждый вопрос, тебе сложно что ли</p>
+ <img id="resPicture" src="potato.png">
+</div>
+</div>
+
+</form>
+</body>
+</html>
